@@ -1,0 +1,114 @@
+Set up mySQL database, CongoStore.sql can be pasted into the mysql terminal to create the database with the test data I have been using.
+
+Navigate to where you want to clone the repo in a terminal window.
+Type : git clone https://github.com/mdejac/congoStore.git
+
+This will pull the code from the repo and put in on your machine in a congoStore folder.
+in congoStore folder type : git checkout -b MD_api_user_commit <-- make unique to you, and what you're going to work on
+when you have finished your changes then type : git push origin MD_api_user_commit
+
+backend/flask_app/config
+	mysqlconnection.py - change user & password
+
+Terminal window #1
+congo/backend
+	pipenv shell
+	pipenv install
+	python3 server.py
+	
+
+Terminal window #2
+congo/frontend
+	npm install
+	npm run dev
+	
+	
+
+AXIOS API CALLS
+
+User routes
+/api/users/login, method=POST
+	{'email': 'email', 'password':'password'}
+	
+	if valid returns json user object (to add route protection to prevent non logged in access an idea would be to store the returned user object in global state and if not present don't allow access.  loginUser, setLoginUser???)
+	if not valid a json error object is returned with validation errors. response.data.errors 
+	Errors are grouped by attribute key with array value
+		i.e. error['email'][0] has email error
+
+/api/users/register, method=POST
+	{
+	 "first_name": "Testy",
+    	 "last_name": "McTesterson VIIII",
+    	 "address": "123 Test St",
+    	 "email": "testy9@gmail.com",
+    	 "password": "password",
+    	 "confirm_password": "password"
+	}
+	
+	if valid returns json user object (to add route protection to prevent non logged in access an idea would be to store the returned user object in global state and if not present don't allow access  loginUser, setLoginUser????)
+	if not valid a json error object is returned with validation errors. response.data.errors
+	Errors are grouped by attribute key with array value
+		i.e. error['password'][0] could hold length error, error['password'][1] could hold doesn't match error 
+
+/api/users/user_id
+	if valid returns a user json object of user_id
+	
+/api/users/logout
+	no functionality. Was used to clear session but session won't work with axios calls. Handle logout on client side, clear loginUser state???	
+	
+Product Routes
+/api/products/create, methods=POST
+	{
+	 	 "user_id" : user_id
+    	 "name": "JSON Product",
+    	 "description": "Testing api create. Defintitely not furniture",
+    	 "category": "Misc",
+    	 "quantity": 10,
+    	 "price": 29.99,
+    	 "img_url": "https://example.com/product-image.jpg"
+	}
+	
+	if successful returns json product object
+	if unsuccessful returns json error object
+	
+/api/products
+	returns all products
+
+/api/products/users/user_id
+	returns all products being sold by user_id
+
+/api/products/category/search_term
+	returns all products with the search_term present in the category.
+	
+/api/products/description/search_term
+	returns all products with the search_term present in the description
+	
+/api/products/view/product_id
+	returns json object of product.  Only use for view page. If getting a product to edit see below.
+
+/api/products/edit/product_id
+	returns JSON object of product.
+
+/api/products/edit, methods=PUT
+	{
+    	 "name": "JSON Product - EDIT",
+    	 "description": "Testing api EDIT. Defintitely not furniture",
+    	 "category": "Misc",
+    	 "quantity": 10,
+    	 "price": 29.99,
+    	 "img_url": "https://example.com/product-image.jpg"
+	}
+	
+	returns successful/unsuccessful message
+
+/api/products/delete/product_id
+	returns result message
+	
+Reviews
+/api/reviews/product_id/create
+	{
+	 "user_id" : user_id,
+    	 "content" : "This is the first API review",
+    	 "rating" : "*****"
+	}
+	returns errors object for validations or success message if valid.

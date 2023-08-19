@@ -1,0 +1,97 @@
+<h1>Product search results page</h1>
+<h2>Search for {{search_term}}</h2>
+<div>
+    <h3>Category search result</h3>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>description</th>
+            <th>qty</th>
+            <th>price</th>
+            <th>img url</th>
+            <th>posted by</th>
+            <th>number reviews</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in product_category_search_results %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category}}</td>
+              <td>{{ product.description}}</td>
+              <td>{{ product.quantity}}</td>
+              <td>{{ product.price}}</td>
+              <td>{{ product.img_url}}</td>
+              <td>{{ product.creator.first_name }} {{ product.creator.last_name }}</td>
+              <td>{{ product.reviews|length }}</td>
+              <table>
+                <tr>
+                  <th>content</th>
+                  <th>rating</th>
+                  <th>Posted by</th>
+                </tr>
+                <tbody>
+                    {% for review in product.reviews %}
+                    <tr>
+                      <td>{{review.content}}</td>
+                      <td>{{review.rating}}</td>
+                      <td>{{review.creator.first_name}} {{review.creator.last_name}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<div>
+    <h3>Description search results</h3>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>description</th>
+            <th>qty</th>
+            <th>price</th>
+            <th>img url</th>
+            <th>posted by</th>
+            <th>number reviews</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in product_description_search_results %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category}}</td>
+              <td>{{ product.description}}</td>
+              <td>{{ product.quantity}}</td>
+              <td>{{ product.price}}</td>
+              <td>{{ product.img_url}}</td>
+              <td>{{ product.creator.first_name }} {{ product.creator.last_name }}</td>
+              <td>{{ product.reviews|length }}</td>
+              <table>
+                <tr>
+                  <th>content</th>
+                  <th>rating</th>
+                  <th>Posted by</th>
+                </tr>
+                <tbody>
+                    {% for review in product.reviews %}
+                    <tr>
+                      <td>{{review.content}}</td>
+                      <td>{{review.rating}}</td>
+                      <td>{{review.creator.first_name}} {{review.creator.last_name}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>

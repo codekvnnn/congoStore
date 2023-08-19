@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <title>CongoStore</title>
+</head>
+<body style="font-family: 'Ubuntu', sans-serif;">
+
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: lightslategray;">
+        <a class="navbar-brand" href="#">Congo Store</a>
+        {% if 'user_id' in session %}
+        <ul class="navbar-nav ml-auto">
+            <a class="navbar-brand" href="#">{{session.user_name}}</a>
+            <li class="nav-item">
+                {% block nav_option %}<!--<a class="nav-link" href="#"></a>-->{% endblock %}
+            </li>
+            <li class="nav-item dropdown mr-5 pr-5">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Options
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/users/edit">Edit user information</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/users/logout">Logout</a></li> 
+                  </ul>
+            </li>
+        </ul>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="modal show d-block" tabindex="-1" role="dialog" id="flash-messages">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Process Failed!</h5>
+                        </div>
+                        <div class="modal-body">
+                            {% for message in messages %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" onclick="document.getElementById('flash-messages').remove()">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+    
+
+</body>
+</html>

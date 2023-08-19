@@ -1,0 +1,53 @@
+<h1>Homepage - /products</h1>
+
+<div>
+
+    <table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>description</th>
+            <th>qty</th>
+            <th>price</th>
+            <th>img url</th>
+            <th>posted by</th>
+            <th>number reviews</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in all_products %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category}}</td>
+              <td>{{ product.description}}</td>
+              <td>{{ product.quantity}}</td>
+              <td>{{ product.price}}</td>
+              <td>{{ product.img_url}}</td>
+              <td>{{ product.creator.first_name }} {{ product.creator.last_name }}</td>
+              <td>{{ product.reviews|length }}</td>
+              <table>
+                <tr>
+                  <th>content</th>
+                  <th>rating</th>
+                  <th>Posted by</th>
+                  <th>Created date</th>
+                  <th>Updated date</th>
+                </tr>
+                <tbody>
+                    {% for review in product.reviews %}
+                    <tr>
+                      <td>{{review.content}}</td>
+                      <td>{{review.rating}}</td>
+                      <td>{{review.creator.first_name}} {{review.creator.last_name}}</td>
+                      <td>{{review.created_at}}</td>
+                      <td>{{review.updated_at}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>

@@ -1,0 +1,18 @@
+<h1>Product View page</h1>
+
+<p>Name : {{product.name}}</p>
+<p>Category : {{product.category}}</p>
+<p>Description : {{product.description}}</p>
+<p>Quantity : {{product.quantity}}</p>
+<p>Price : {{product.price}}</p>
+<p>Potential Image : {{product.img_url}}</p>
+<p>Number of reviews : {{ product.reviews|length }}</p>
+{% for review in product.reviews %}
+<p>Product id : {{review.product_id}}</p>
+<p>Posted id : {{review.user_id}}</p>
+<p>Content : {{review.content}}</p>
+<p>Rating : {{review.rating}}</p>
+<p>Posted By : {{review.creator.first_name}} {{review.creator.last_name}}</p>
+<p>Address : {{review.creator.address}}</p>
+<p>Email : {{review.creator.email}}</p>
+{% endfor %}

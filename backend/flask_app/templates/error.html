@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+
+{% block title %} Page not found {% endblock %}
+
+{% block nav_option %}
+  <li><a class="nav-link" href="/products/create">Add</a></li>
+  <li><a class="nav-link" href="/users/profile">Dashboard</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-9">
+            <div class="text-center">
+                <h1 class="display-4">Oops! Something went wrong.</h1>
+                {% if 'user_id' in session %}
+                    <a href="/products" class="btn border-dark mt-3" style="background-color: #e1b294;">Back to home</a>
+                {% else %}
+                    <a href="/" class="btn border-dark mt-3" style="background-color: #e1b294;">Register/Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
